@@ -5,10 +5,10 @@ import TheNavbar from './components/TheNavbar.vue';
 
 <template>
   <div class="flex h-screen">
-    <nav class="">
+    <nav>
       <TheNavbar />
     </nav>
-    <main class="bg-gray-200 w-full">
+    <main class="w-full">
       <RouterView />
     </main>
   </div>

@@ -1,26 +1,24 @@
 <script lang="ts" setup>
-    const props = defineProps(['item']);
+const props = defineProps<{item: any, isCollapsed: boolean}>();
 
-    const item = props.item;
+const item = props.item;
 </script>
 
 <template>
     <div class="text-xl">
         <RouterLink :to="item.link" active-class="active" class="w-full py-4 block">
-            <span class="px-6 text-2xl">
+            <span class="px-8 text-2xl">
                 <component :is="item.icon" class="inline"></component>
             </span>
-            <span class="">
+            <span class="" v-if="!props.isCollapsed">
                 {{item.label}}
             </span>
         </RouterLink>
     </div>
 </template>
 
-<style scoped>
-    .active {
-        color: #ff9a69;
-        background-color: #3e3e3e;
-        border-radius: 0 20px 20px 0;
-    }
+<style scoped lang="scss">
+.active {
+    @apply bg-bgblack text-textorange rounded-r-[20px];
+}
 </style>

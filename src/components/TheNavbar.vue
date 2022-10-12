@@ -1,6 +1,6 @@
 <script setup lang="ts">
-    import {ref} from 'vue';
-    import {Cog, HomeVariantOutline, ArrowLeft } from 'mdue';
+    import {ref, reactive} from 'vue';
+    import {Cog, HomeVariantOutline, ArrowLeft, ChevronLeft, ChevronRight } from 'mdue';
     import NavbarItem from './Navbar/NavbarItem.vue';
 
     let tenantName = ref('High Linguistic Academy of Peremozhne');
@@ -40,27 +40,38 @@
         link: '/logout',
         icon: ArrowLeft
     };
+
+    const isCollapsed = ref(false);
+    const onCollapseClick = () => {
+        isCollapsed.value = !isCollapsed.value;
+    };
 </script>
 
 <template>
-    <div class="h-full flex flex-col justify-between py-3">
+    <div class="h-full flex flex-col justify-between py-3 bg-white rounded-r-3xl">
         <div class="mb-5 p-5">
-            <div class="font-bold text-5xl mb-2">
-                MEDIAR
+            <div class="font-extrabold text-5xl mb-2">
+                M<span class="font-extrabold" v-if="!isCollapsed">EDIAR</span>
             </div>
-            <div>
+            <div v-if="!isCollapsed">
                 {{tenantName}}
             </div>
         </div>
         <div>
-            <NavbarItem v-for="i in menuItems" :item="i" ></NavbarItem>
+            <NavbarItem v-for="i in menuItems" :item="i" :is-collapsed="isCollapsed"></NavbarItem>
         </div>
         <div>
-            <NavbarItem :item="logoutItem"></NavbarItem>
+            <NavbarItem :item="logoutItem" :is-collapsed="isCollapsed"></NavbarItem>
         </div>
+        <button class="collapse-btn" @click="onCollapseClick()">
+            <ChevronRight v-if="isCollapsed" />
+            <ChevronLeft v-else />
+        </button>
     </div>
 </template>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .collapse-btn {
+        @apply absolute top-8 right-[-25px] p-2 z-10 rounded-2xl bg-bgblack text-textorange text-3xl;
+    }
 </style>
